@@ -1,0 +1,521 @@
+<html>
+  <head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tetap Bersama</title>
+    <style>
+        body {
+  text-decoration-color: #000;
+    overflow-y: auto;
+    width: 100%;
+    overflow-x: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: var(--primary-color-light);
+    background-color: var(--primary-color-dark);
+}
+
+header {
+    background-color: #202020;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+.home-button {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.home-button img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+#infoContainer {
+  margin-top: 60px;
+}
+
+.right-section {
+  display: absolute;
+  background-color: #000;
+}
+
+#theme-options {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    top: 70px;
+    right: 0;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    outline: 2px solid #111;
+    z-index: 2;
+    transition: transform 0.3s;
+    transform: translateX(100%);
+}
+
+#theme-options.show {
+    display: flex;
+    flex-direction: row;
+    transform: translateX(0%);
+}
+
+.theme-option.selected {
+    border: 2px solid #007bff;
+}
+
+.theme-option {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #000;
+    transition: all 0.3s ease;
+}
+
+.theme-option:hover {
+    transform: scale(1.2);
+}
+
+.theme-light {
+    background-color: #303030;
+    color: #fff;
+}
+
+.theme-cyan {
+    background-color: #00FFFF;
+    color: #fff;
+}
+
+.theme-macaron {
+    background-color: #E2FFC6;
+    color: #fff;
+}
+
+.theme-dark {
+    background-color: #FFFFFF;
+    color: #303030;
+}
+
+
+main {
+    padding: 20px;
+}
+
+#video-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: fff;
+}
+
+.video {
+    position: relative;
+    width: 30%;
+    margin-bottom: 20px;
+    transform: skew(0deg) rotate(0deg);
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: #000;
+}
+
+.video:hover {
+    transform: skew(0deg) rotate(0deg) scale(0.95);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    outline: 2px solid #007bff;
+}
+
+.thumbnail {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    transform: skew(0deg) rotate(0deg);
+    transition: transform 0.3s;
+    color: fff;
+}
+
+.video:hover .thumbnail {
+    transform: skew(0deg) rotate(0deg) scale(1.05);
+}
+
+.thumbnail img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: skew(0deg) rotate(0deg);
+}
+
+.video-info {
+    background-color: #fff;
+    padding: 14px;
+    transform: skew(0deg) rotate(0deg);
+    transition: transform 0.3s;
+    color: 000;
+}
+
+.video:hover .video-info {
+    transform: skew(0deg) rotate(0deg) scale(1.05);
+}
+
+.video-info h3 {
+    font-size: 16px;
+    margin: 0;
+    transform: skew(0deg) rotate(0deg);
+}
+
+.video-info p {
+    font-size: 14px;
+    margin: 0;
+    transform: skew(0deg) rotate(0deg);
+    color: #000;
+}
+
+input[type="text"],
+textarea {
+  background-color: #303030;
+  border: none;
+  color: #ffffff;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.comment-input {
+  position: absolute;
+  width: 100%;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 10px;
+  z-index: 1;
+}
+
+textarea {
+  resize: none;
+}
+.video-controls {
+  position: absolute;
+  margin-top: 20px;
+  z-index: 1;
+}
+
+#videoPlayer {
+  display: flex;
+  position: absolute;
+  width: 400px;
+  height: 800px;
+  z-index: 1;
+}
+
+.comment {
+  /* Gaya komentar Anda */
+  position: relative;
+}
+
+.comment-text {
+  background-color: #303030;
+  padding: 8px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #ffffff;
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+}
+
+
+        #videoContainer {
+            width: 100%;
+            max-width: 800px;
+            height: 0;
+            padding-top: 56.25%;
+            position: relative;
+            overflow: hidden;
+            outline: 2px solid #303030;
+            border-radius: 4px;
+            margin: 20px auto;
+        }
+        
+        .video-container {
+            width: 640px;
+            height: 360px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #videoPlayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-title {
+            display: flex;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #303030;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .show-description {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .show-description::after {
+            content: "\25BE"; 
+            margin-left: 5px;
+        }
+
+        .description {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #303030;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            overflow-wrap: break-word;
+        }
+
+        .expanded {
+            display: block;
+        }
+        
+        .tar {
+          display: flex;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #303030;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        #viewCount {
+            font-weight: bold;
+            color: #777;
+        }
+
+        #uploadDate {
+            color: #777;
+        }
+
+        #commentsContainer {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #commentInput {
+            width: 90%;
+            margin-bottom: 10px;
+        }
+
+        #commentList {
+            list-style-type: none;
+            padding: 0
+        }
+
+        .comment {
+            margin-bottom: 10px;
+            background-color: #303030;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+        .comment .author {
+            font-weight: bold;
+            font-palette: 20px;
+        }
+
+        .comment .content {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+    </style>
+           
+</head>
+<body class="theme-light">
+    <header>
+        <div class="left-section">
+            <div class="home-button">
+                <a href="Tetap Bersama.html">
+                    <img src="home.jpg" alt="Home">
+                </a>
+            </div>
+            <h1>Ya Ndak Tau</h1>
+        </div>
+        <div class="right-section">
+            <button id="theme-toggle-btn">Ganti Tema</button>
+    </header>
+    <main>
+           <div id="theme-options">
+            <div class="theme-option theme-light" id="theme-light"></div>
+            <div class="theme-option theme-cyan" id="theme-cyan"></div>
+            <div class="theme-option theme-macaron" id="theme-macaron"></div>
+            <div class="theme-option theme-dark" id="theme-dark"></div>
+           </div>
+            </class>
+                 <div>
+                  <div id="videoContainer">
+                   <video id="videoPlayer" controls>
+                    Your browser does not support the video tag.
+                  </video>
+                 </div>
+
+    <div class="video-wrapper">
+        <h1 class="video-title">Mari Login Islam</h1>
+        <button class="show-description" onclick="toggleDescription()">Show Description</button>
+        <div class="description">
+            <p>Bikin website kelas sendiri yok bang kalo bisa, tapi dah mau naik kelas anjir, jarang praktek, guru lawak, ikut eskul cuma niat hindarin razia tapi malah bablas sampe pelantikan ada ada saja, edcamp dikasih garem engga kerasa, opet pulpen, di incer agus :v</p>
+        </div>
+        <p class="comment-text"><class="comment-time"></span></p>
+    </div>
+            
+    <div class="comment-input-container">
+        <h2 class="tar">Comments</h2>
+        <input type="text" id="commentInput" placeholder="Your name">
+        <textarea id="commentText" rows="4" placeholder="Your comment"></textarea>
+        <button onclick="addComment()">Kirim⟩</button>
+        <p class="comment-text"><class="comment-time"></span></p>
+        <ul id="commentList"></ul>
+    </div>
+
+    <script>
+        var videoUrl = 'https://drive.google.com/uc?export=download&id=18WXJHfqaNHcJZ1DBbUazlRt3Mddv7Viq';
+        var comments = [];
+
+        document.getElementById('videoPlayer').src = videoUrl;
+
+        function addComment() {
+            var authorInput = document.getElementById('commentInput');
+            var commentInput = document.getElementById('commentText');
+
+            var author = authorInput.value;
+            var comment = commentInput.value;
+
+            if (author && comment) {
+                var commentObj = {
+                    author: author,
+                    comment: comment
+                };
+
+                comments.push(commentObj);
+                renderComments();
+                authorInput.value = '';
+                commentInput.value = '';
+            }
+        }
+
+        function renderComments() {
+            var commentList = document.getElementById('commentList');
+            commentList.innerHTML = '';
+
+            comments.forEach(function(commentObj) {
+                var commentItem = document.createElement('li');
+                commentItem.classList.add('comment');
+
+                var authorElem = document.createElement('div');
+                authorElem.classList.add('author');
+                authorElem.textContent = commentObj.author;
+
+                var contentElem = document.createElement('div');
+                contentElem.classList.add('content');
+                contentElem.textContent = commentObj.comment;
+
+                commentItem.appendChild(authorElem);
+                commentItem.appendChild(contentElem);
+
+                commentList.appendChild(commentItem);
+            });
+        }
+    </script>
+        <script>
+        function toggleDescription() {
+            var description = document.querySelector('.description');
+            var showDescription = document.querySelector('.show-description');
+
+            if (description.style.display === 'none') {
+                description.style.display = 'block';
+                showDescription.textContent = 'Hide Description';
+            } else {
+                description.style.display = 'none';
+                showDescription.textContent = 'Show Description';
+            }
+        }
+    </script>
+    <script>
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const themeOptions = document.getElementById('theme-options');
+const body = document.body;
+
+themeToggleBtn.addEventListener('click', toggleThemeOptions);
+
+function toggleThemeOptions() {
+    themeOptions.classList.toggle('show');
+}
+
+const themeOptionsList = themeOptions.getElementsByClassName('theme-option');
+for (let i = 0; i < themeOptionsList.length; i++) {
+    themeOptionsList[i].addEventListener('click', changeTheme);
+}
+
+function changeTheme() {
+    const selectedTheme = this.id;
+    body.className = selectedTheme;
+}
+function changeTheme() {
+    const selectedTheme = this.id;
+    body.className = selectedTheme;
+    
+    // Menyimpan tema yang dipilih ke local storage
+    localStorage.setItem('selectedTheme', selectedTheme);
+}
+window.addEventListener('DOMContentLoaded', function() {
+    // Mengecek apakah tema yang dipilih ada di local storage
+    const selectedTheme = localStorage.getItem('selectedTheme');
+    if (selectedTheme) {
+        body.className = selectedTheme;
+    }
+});
+
+</script>
+</body>
+</html>
