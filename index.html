@@ -196,16 +196,6 @@ textarea {
   padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
-.comment-input {
-  position: absolute;
-  width: 100%;
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 10px;
-  z-index: 1;
-}
 
 textarea {
   resize: none;
@@ -224,27 +214,6 @@ textarea {
   z-index: 1;
 }
 
-.comment {
-  /* Gaya komentar Anda */
-  position: relative;
-}
-
-.comment-text {
-  background-color: #303030;
-  padding: 8px;
-  border-radius: 4px;
-  position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.comment-time {
-  font-size: 12px;
-  color: #ffffff;
-  position: absolute;
-  bottom: 4px;
-  right: 4px;
-}
-
 
         #videoContainer {
             width: 100%;
@@ -260,7 +229,7 @@ textarea {
         
         .video-container {
             width: 640px;
-            height: 360px;
+            heigh: 360px;
             position: relative;
             overflow: hidden;
         }
@@ -333,39 +302,7 @@ textarea {
             color: #777;
         }
 
-        #commentsContainer {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #commentInput {
-            width: 90%;
-            margin-bottom: 10px;
-        }
-
-        #commentList {
-            list-style-type: none;
-            padding: 0
-        }
-
-        .comment {
-            margin-bottom: 10px;
-            background-color: #303030;
-            color: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-        .comment .author {
-            font-weight: bold;
-            font-palette: 20px;
-        }
-
-        .comment .content {
+        
             margin-top: 5px;
             font-size: 12px;
         }
@@ -409,14 +346,7 @@ textarea {
         <p class="comment-text"><class="comment-time"></span></p>
     </div>
             
-    <div class="comment-input-container">
-        <h2 class="tar">Comments</h2>
-        <input type="text" id="commentInput" placeholder="Your name">
-        <textarea id="commentText" rows="4" placeholder="Your comment"></textarea>
-        <button onclick="addComment()">Kirim⟩</button>
-        <p class="comment-text"><class="comment-time"></span></p>
-        <ul id="commentList"></ul>
-    </div>
+
 
     <script>
         var videoUrl = 'https://drive.google.com/uc?export=download&id=18WXJHfqaNHcJZ1DBbUazlRt3Mddv7Viq';
@@ -424,48 +354,9 @@ textarea {
 
         document.getElementById('videoPlayer').src = videoUrl;
 
-        function addComment() {
-            var authorInput = document.getElementById('commentInput');
-            var commentInput = document.getElementById('commentText');
+      
 
-            var author = authorInput.value;
-            var comment = commentInput.value;
-
-            if (author && comment) {
-                var commentObj = {
-                    author: author,
-                    comment: comment
-                };
-
-                comments.push(commentObj);
-                renderComments();
-                authorInput.value = '';
-                commentInput.value = '';
-            }
-        }
-
-        function renderComments() {
-            var commentList = document.getElementById('commentList');
-            commentList.innerHTML = '';
-
-            comments.forEach(function(commentObj) {
-                var commentItem = document.createElement('li');
-                commentItem.classList.add('comment');
-
-                var authorElem = document.createElement('div');
-                authorElem.classList.add('author');
-                authorElem.textContent = commentObj.author;
-
-                var contentElem = document.createElement('div');
-                contentElem.classList.add('content');
-                contentElem.textContent = commentObj.comment;
-
-                commentItem.appendChild(authorElem);
-                commentItem.appendChild(contentElem);
-
-                commentList.appendChild(commentItem);
-            });
-        }
+        
     </script>
         <script>
         function toggleDescription() {
